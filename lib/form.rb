@@ -1,3 +1,10 @@
+require_relative './FormData'
+require_relative './Database'
+require_relative './PackingListGenerator'
+
+# User interface
+database = Database.new
+
 # Get user input
 puts "Welcome to my Holiday Packing Checklist Generator!"
 puts "Please enter the details of your holiday:"
@@ -28,12 +35,10 @@ types.each do |type|
     puts "#{type}"
 end
 
-type = gets.chomp
-
+holiday_type = gets.chomp
 
 puts "Duration (in days): "
 duration = gets.chomp.to_i
-
 
 # Generate packing checklist in sections (need to create error handling for nil nil class)
 packing_list = {"Important" => [], "Clothing" => [], "Personal care" => [], "Electronics" => [], "Food" => [], "Entertainment" => [], "Miscellaneous" => []}
@@ -47,24 +52,24 @@ packing_list["Important"] << "Money and credit cards"
 packing_list["Food"] << "Snacks and drinks for the journey"
 packing_list["Entertainment"] << "Entertainment (books, games, etc.)"
 
-if type == "Beach / resort holiday"
+if holiday_type == "Beach / resort holiday"
     packing_list["Clothing"] << "Swimsuits"
     packing_list["Personal care"] << "Beach towels"
     packing_list["Personal care"] << "Sunscreen"
-elsif type == "Adventure holiday"
+elsif holiday_type == "Adventure holiday"
     packing_list["Clothing"] << "Hiking boots"
     packing_list["Clothing"] << "Warm clothing"
     packing_list["Important"] << "Trekking poles"
-elsif type == "Camping holiday"
+elsif holiday_type == "Camping holiday"
     packing_list["Important"] << "Tent"
     packing_list["Important"] << "Tent poles"
     packing_list["Important"] << "Sleeping bag"
     packing_list["Clothing"] << "Hiking boots"
     packing_list["Clothing"] << "Warm clothing"
     packing_list["Clothing"] << "Trekking poles"
-elsif type == "City break"
+elsif holiday_type == "City break"
     packing_list["Clothing"] << "Smart dress"
-elsif type == "Travel around multiple destinations"
+elsif holiday_type == "Travel around multiple destinations"
     packing_list["Clothing"] << "Swimsuits"
     packing_list["Personal care"] << "Beach towels"
     packing_list["Personal care"] << "Sunscreen"
@@ -91,3 +96,6 @@ end
 
 # End of program
 puts "\nHave a great holiday!"
+
+
+database.display_form_database
